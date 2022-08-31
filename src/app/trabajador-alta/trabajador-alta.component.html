@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="text-center"><h1>Añadir Empleado</h1></div>
+    <div style="width:50%;margin:auto">
+    <form [formGroup]="addForm" novalidate class="form">
+          
+        <div class="row">
+            <div class="col-md-6">Nombre</div>
+            <div class="col-md-6"><input type="text" class="form-control" name="Nombre" formControlName="Nombre"></div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-6">Apellido paterno</div>
+            <div class="col-md-6"><input class="form-control" type="text" name="Apellidop" formControlName="Apellidop"></div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-6">Apellido materno</div>
+            <div class="col-md-6"><input type="text" class="form-control" name="Apellidom" formControlName="Apellidom"></div>
+        </div>
+    
+        
+        <div class="row">
+            <div class="col-md-6">Telefono</div>
+            <div class="col-md-6"><input type="text" class="form-control" name="Telefono" formControlName="Telefono"></div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-6">Gender</div>
+            <div class="col-md-6">
+                
+                Hombre :   <input formControlName="Sexo" type="radio" name="Sexo" value="hombre" >
+                Mujer :   <input formControlName="Sexo" type="radio" name="Sexo" value="mujer">
+    
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">Fecha de Nacimiento</div>
+            <div class="col-md-6">
+                
+                <input formControlName="Nacimiento" type="date" name="Nacimiento" min="1900-01-01">
+
+            </div>
+        </div>
+    
+    
+        <div class="row">
+            <div class="col-md-12">
+                
+                <button class="btn btn-success"   (click)="onSubmit()">ADD Empleado</button>
+            </div>
+    
+         </div>
+     
+    
+    </form>
+    </div>
+    </div>

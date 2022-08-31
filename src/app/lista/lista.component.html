@@ -1,0 +1,26 @@
+<table class="table table-stripped">
+    <thead class="bg-primary">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Paterno</th>
+            <th>Materno</th>
+            <th>Telefono</th>
+            <th>Sexo</th>
+            <th>Fecha de nacimiento</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let trabajador of trabajador">
+            <td>{{trabajador.ID_empleado}}</td>
+            <td>{{trabajador.Nombre}}</td>
+            <td>{{trabajador.Apellidop}}</td>
+            <td>{{trabajador.Apellidom}}</td>
+            <td>{{trabajador.Telefono}}</td>
+            <td>{{trabajador.Sexo}}</td>
+            <td>{{trabajador.Nacimiento}}</td>
+            <td><a href="edit/{{trabajador.ID_empleado}}" class="btn btn-success">Editar</a> | <button (click)="deletetrabajador(trabajador)" class="btn btn-info">Eliminar</button></td>
+        </tr>
+    </tbody>
+</table>
