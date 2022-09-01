@@ -39,11 +39,11 @@ export class TrabajadorAltaComponent implements OnInit {
     // console.log(this.addForm.value)
     this.TrabajadoresService.addTrabajador(this.addForm.value).subscribe(
       {
-        next: resp => {
+        next: (resp:any) => {
           console.log(resp);
           this.router.navigate(['/']);
         },
-        error: err =>{
+        error: (err:any) =>{
           console.log(err.error.msg);
           
 

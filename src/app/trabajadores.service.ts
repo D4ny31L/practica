@@ -10,7 +10,7 @@ export class TrabajadoresService {
 
   constructor( private http:HttpClient) { }
 
-  url:string = 'http://localhost:55493/api/Empleados';  
+  url:string = 'http://localhost:55493/api/Empleadosdaniel';  
 
   getTrabajador() {
     return this.http.get(this.url);
@@ -26,6 +26,7 @@ export class TrabajadoresService {
   }
 
   updateTrabajador(id:any, trabajador:Trabajador):Observable<Trabajador>{
+    console.log(trabajador, id);
     return this.http.put<Trabajador>(this.url + "/"+ id, trabajador);
   }
 

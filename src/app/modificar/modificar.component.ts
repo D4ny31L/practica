@@ -4,6 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TrabajadoresService } from '../trabajadores.service';
 import { Trabajador } from '../models/Trabajador';
 import { identity } from 'rxjs';
+import { FormArray } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { transformAll } from '@angular/compiler/src/render3/r3_ast';
 
 
 @Component({
@@ -12,30 +16,46 @@ import { identity } from 'rxjs';
   styleUrls: ['./modificar.component.css']
 })
 export class ModificarComponent implements OnInit {
+
   
-  addForm:any;
+  addForm: FormGroup;
   Trabajador_id: any;
-  vals = ''
-  data= this.vals.split(',');
  
   constructor( 
-    private formBuilder: FormBuilder,
     private router: Router,
     private TrabajadoresService:TrabajadoresService,
     private url:ActivatedRoute,
     ) {
-
-      this.addForm = this.formBuilder.group({
+      this.addForm = new FormBuilder().group({
         ID_empleado:[],
-        Nombre: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(2)]],  
-        Apellidop: ['', [Validators.required, Validators.maxLength(50),Validators.minLength(2)]],  
-        Apellidom: ['', [Validators.required, Validators.maxLength(50),Validators.minLength(2)]] ,
-        Telefono: ['', [Validators.required, Validators.maxLength(10),Validators.minLength(10)]] ,
-        Sexo: ['', Validators.required],  
-        Nacimiento: ['', Validators.required],   
-      }
-      )
-     }
+        Nombre: new FormControl('',[
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.minLength(3),
+        ]),
+        Apellidop : new FormControl('',[
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.minLength(3),
+        ]),
+        Apellidom : new FormControl('',[
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.minLength(3),
+        ]),
+        Telefono : new FormControl('',[
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(10),
+        ]),
+        Sexo : new FormControl('',[
+          Validators.required
+        ]),
+        Nacimiento : new FormControl('',[
+          Validators.required
+        ]),
+      })
+    };
 
   ngOnInit(): void {
     this.Trabajador_id = this.url.snapshot.params['id']
@@ -43,13 +63,27 @@ export class ModificarComponent implements OnInit {
       this.TrabajadoresService.getOneTrabajador(this.Trabajador_id).subscribe((
         (data:any)=>{
           console.log(data);
-          this.addForm.patchValue(data);}
+          this.addForm.setValue({
+            ID_empleado: this.Trabajador_id,
+            Nombre : "Nombre",
+            Apellidop: "Apellido Paterno",
+            Apellidom : "Apellido Materno",
+            Telefono: "6677777777",
+            Sexo : "hombre",
+            Nacimiento: ""
+          });}
       ))
     }
 
     //console.log(this.Trabajador_id);
   }
-
+  UserUpdate(frmValues: FormGroup){
+    if(!frmValues.valid) {
+      console.log ('Form is Invalid');
+      return;
+    }
+    
+  }
 
   onEdit(){
    
@@ -60,7 +94,7 @@ export class ModificarComponent implements OnInit {
           console.log(resp);
           this.router.navigate(['/']);
         },
-        error: err =>{
+        error: (err:any) =>{
           alert(err.error.msg);        
         }
       } 
